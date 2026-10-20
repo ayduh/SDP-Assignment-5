@@ -5,7 +5,6 @@ import com.aidar.external.NetworkSpeedProvider;
 import com.aidar.model.StreamRequest;
 
 public class HighestQualityStrategyTest {
-
     @Test 
     public void testDetermineVideoQuality() {
         HighestQualityStrategy strategy = new HighestQualityStrategy();

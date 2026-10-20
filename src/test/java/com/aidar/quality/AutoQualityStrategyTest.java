@@ -5,7 +5,6 @@ import com.aidar.model.StreamRequest;
 import static org.junit.Assert.*;
 
 public class AutoQualityStrategyTest {
-
     @Test
     public void testDetermineVideoQuality() {
         AutoQualityStrategy strategy = new AutoQualityStrategy();

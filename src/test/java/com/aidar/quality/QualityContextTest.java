@@ -10,7 +10,7 @@ public class QualityContextTest {
     public void testGetVideoQuality() {
         StreamRequest request = new StreamRequest(1080, 60, "standard", false);
         NetworkSpeedProvider network = () -> 50.0;
-        QualityContext context = new QualityContext(new LowestQualityStrategy(), request, network);
+        QualityContext context = new QualityContext(new LowestQualityStrategy());
         assertEquals("480p 30fps", context.getVideoQuality());
     }
 
@@ -19,7 +19,7 @@ public class QualityContextTest {
         QualitySelector selector = new QualitySelector();
         NetworkSpeedProvider network = () -> 50.0;
         StreamRequest request = new StreamRequest(1080, 25, "standard", false);
-        QualityContext context = new QualityContext(selector.selectStrategy("auto"), request, network);       
+        QualityContext context = new QualityContext(selector.selectStrategy("auto"));       
 
         assertEquals("720p 25fps", context.getVideoQuality());
     }

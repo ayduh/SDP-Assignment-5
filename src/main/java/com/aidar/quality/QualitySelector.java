@@ -1,6 +1,10 @@
 package com.aidar.quality;
 
-public class QualitySelector {
+import com.aidar.model.StreamRequest;
+
+public class QualitySelector implements UserPreferencesListener{
+    private final QualityContext context;
+
     public VideoQualityStrategy selectStrategy(String userSelectedMode) {
         return switch (userSelectedMode.toUpperCase()) {
             case "AUTO" -> new AutoQualityStrategy();
@@ -8,5 +12,10 @@ public class QualitySelector {
             case "LOWEST" -> new LowestQualityStrategy();
             default -> throw new IllegalArgumentException("Invalid user selected mode: " + userSelectedMode);
         };
+    }
+
+    @Override
+    void onPreferencesChanged(StreamRequest newRequest) {
+        
     }
 }
