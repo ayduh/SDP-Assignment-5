@@ -1,35 +1,40 @@
 package com.aidar.quality;
 
+import java.util.Objects;
+
 import com.aidar.external.NetworkSpeedProvider;
 import com.aidar.model.StreamRequest;
 
+/** Strategy context: holds the current strategy and its parameters, and only delegates. */
 public class QualityContext {
     private VideoQualityStrategy strategy;
     private StreamRequest request;
-    private NetworkSpeedProvider network;
+    private final NetworkSpeedProvider network;
 
-    public QualityContext(VideoQualityStrategy strategy) {
-        this.strategy = strategy;
+    public QualityContext(VideoQualityStrategy strategy, StreamRequest request, NetworkSpeedProvider network) {
+        this.strategy = Objects.requireNonNull(strategy, "strategy can't be null");
+        this.request = Objects.requireNonNull(request, "StreamRequest can't be null");
+        this.network = Objects.requireNonNull(network, "NetworkSpeedProvider can't be null");
     }
 
-    public void setQualityStrategy(VideoQualityStrategy strategy) {
-        this.strategy = strategy;
+    public void setStrategy(VideoQualityStrategy strategy) {
+        this.strategy = Objects.requireNonNull(strategy, "strategy can't be null");
     }
-    
+
+    /** Replaces the parameters the strategy works with (called when preferences change). */
+    public void setRequest(StreamRequest request) {
+        this.request = Objects.requireNonNull(request, "StreamRequest can't be null");
+    }
+
+    public VideoQualityStrategy getStrategy() {
+        return strategy;
+    }
+
+    public StreamRequest getRequest() {
+        return request;
+    }
+
     public String getVideoQuality() {
         return strategy.determineVideoQuality(request, network);
-    }
-
-    public void startVideoPlayback(StreamRequest request, NetworkSpeedProvider network) {
-        if (request == null) {
-            throw new IllegalArgumentException("StreamRequest can't be null");
-        }
-        if (network == null) {
-            throw new IllegalArgumentException("NetworkSpeedProvider can't be null");
-        }
-
-        this.request = request;
-        this.network = network;
-        System.out.println("PLAYING VIDEO: \n" + getVideoQuality());
     }
 }

@@ -1,31 +1,30 @@
 package com.aidar.quality;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import com.aidar.external.NetworkSpeedProvider;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import com.aidar.external.FakeNetworkSpeedProvider;
 import com.aidar.model.StreamRequest;
 
-public class LowestQualityStrategyTest {
+class LowestQualityStrategyTest {
+    private final LowestQualityStrategy strategy = new LowestQualityStrategy();
 
-    @Test 
-    public void testDetermineVideoQuality() {
-        LowestQualityStrategy strategy = new LowestQualityStrategy();
+    @Test
+    void standardAccountGets480p30fps() {
         StreamRequest request = new StreamRequest(1080, 60, "standard", false);
-
-
-        NetworkSpeedProvider fakeNetwork = () -> 100.0;
-
-        String result = strategy.determineVideoQuality(request, fakeNetwork);
-        assertEquals("480p 30fps", result);
+        assertEquals("480p 30fps", strategy.determineVideoQuality(request, new FakeNetworkSpeedProvider(100.0)));
     }
 
-    @Test 
-    public void testDetermineVideoQualityPremium() {
-          LowestQualityStrategy strategy = new LowestQualityStrategy();
-          StreamRequest request = new StreamRequest(2160, 120, "premium", false);
-          
-          NetworkSpeedProvider fakeNetwork = () -> 10.0;
-    
-          String result = strategy.determineVideoQuality(request, fakeNetwork);
-          assertEquals("480p 30fps", result);
-     }
+    @Test
+    void premiumAccountAlsoGets480p30fps() {
+        StreamRequest request = new StreamRequest(2160, 120, "premium", false);
+        assertEquals("480p 30fps", strategy.determineVideoQuality(request, new FakeNetworkSpeedProvider(10.0)));
+    }
+
+    @Test
+    void frameRateIsLimitedByTheDevice() {
+        StreamRequest request = new StreamRequest(480, 20, "standard", false);
+        assertEquals("480p 20fps", strategy.determineVideoQuality(request, new FakeNetworkSpeedProvider(10.0)));
+    }
 }
