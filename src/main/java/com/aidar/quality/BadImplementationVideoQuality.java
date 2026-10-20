@@ -1,4 +1,4 @@
-package com.aidar;
+package com.aidar.quality;
 
 public class BadImplementationVideoQuality {
     public void displayVideo(
