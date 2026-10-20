@@ -1,29 +1,29 @@
 package com.aidar.model;
 
 public class StreamRequest {
-    private String maxDeviceResolution;
-    private String maxDeviceFrameRate;
+    private int maxDeviceResolution;
+    private int maxDeviceFrameRate;
     private String userAccountTier;
     private boolean isDataSaverEnabled;
 
-    public StreamRequest(String maxDeviceResolution, String maxDeviceFrameRate, String userAccountTier, boolean isDataSaverEnabled) {
+    public StreamRequest(int maxDeviceResolution, int maxDeviceFrameRate, String userAccountTier, boolean isDataSaverEnabled) {
         this.maxDeviceResolution = maxDeviceResolution;
         this.maxDeviceFrameRate = maxDeviceFrameRate;
         this.userAccountTier = userAccountTier;
         this.isDataSaverEnabled = isDataSaverEnabled;
     }
 
-    public String getMaxDeviceResolution() {
+    public int getMaxDeviceResolution() {
         return maxDeviceResolution;
     }
-    public void setMaxDeviceResolution(String maxDeviceResolution) {
+    public void setMaxDeviceResolution(int maxDeviceResolution) {
         this.maxDeviceResolution = maxDeviceResolution;
     }
 
-    public String getMaxDeviceFrameRate() {
+    public int getMaxDeviceFrameRate() {
         return maxDeviceFrameRate;
     }
-    public void setMaxDeviceFrameRate(String maxDeviceFrameRate) {
+    public void setMaxDeviceFrameRate(int maxDeviceFrameRate) {
         this.maxDeviceFrameRate = maxDeviceFrameRate;
     }
 
