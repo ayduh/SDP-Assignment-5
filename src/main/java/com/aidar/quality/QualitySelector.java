@@ -2,10 +2,10 @@ package com.aidar.quality;
 
 public class QualitySelector {
     public VideoQualityStrategy selectStrategy(String userSelectedMode) {
-        return switch (userSelectedMode) {
-            case "auto" -> new AutoQualityStrategy();
-            case "highest" -> new HighestQualityStrategy();
-            case "lowest" -> new LowestQualityStrategy();
+        return switch (userSelectedMode.toUpperCase()) {
+            case "AUTO" -> new AutoQualityStrategy();
+            case "HIGHEST" -> new HighestQualityStrategy();
+            case "LOWEST" -> new LowestQualityStrategy();
             default -> throw new IllegalArgumentException("Invalid user selected mode: " + userSelectedMode);
         };
     }
